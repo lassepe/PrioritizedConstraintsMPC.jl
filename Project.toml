@@ -1,0 +1,4 @@
+name = "PrioritizedConstraintsMPC"
+uuid = "439021ae-4521-49fe-8c93-dd0c0116bda1"
+authors = ["lassepe <lasse.peters@mailbox.org>"]
+version = "0.1.0"
