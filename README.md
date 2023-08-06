@@ -14,6 +14,7 @@ As an initial assessment task, complete the following steps
     - Learn about how to `activate` a project environment.
     - Learn about how to install the dependencies of a project via `instantiate`.
 6. If necessary, read up on the language basics/syntax in the [manual](https://docs.julialang.org/en/v1/manual/getting-started/). If you already know Python/C++, you will be able to pick up most of this on the fly.
+7. Set up the license for that PATH solver. Consult the [installation instructions of `ParametricMCPs.jl`](https://github.com/lassepe/parametricmcps.jl#installation) for more details.
 
 ## The Assessment Task
 
@@ -29,14 +30,39 @@ using PrioritizedConstraintsMPC
 PrioritizedConstraintsMPC.run_demo()
 ```
 
-If you set up Julia correctly, this should show a simple plot with a robot standing at the origin of a squared environment.
-Once you have successfully completed the task by completing the steps below, the robot should move to the goal position (marked with the red cross) and stop there.
+If you set up Julia correctly, this should show a simple plot with a Jackal robot spawned at a
+random position and moving towards the goal position (star) using a simple P-controller. Of course,
+this naive controller does not consider constraints. Thus, the simulation will likely terminate
+with warning like below:
+
+```Julia
+┌ Warning: State at time 60 is out of bounds.
+└ @ PrioritizedConstraintsMPC ~/worktree/PrioritizedConstraintsMPC.jl/src/validation.jl:46
+┌ Warning: Step was not feasible; terminating
+└ @ PrioritizedConstraintsMPC ~/worktree/PrioritizedConstraintsMPC.jl/src/visualization.jl:42
+┌ Warning: Goal not reached!
+└ @ PrioritizedConstraintsMPC ~/worktree/PrioritizedConstraintsMPC.jl/src/visualization.jl:53
+```
+
+Once you have successfully completed the task by completing the steps below, the robot should move
+to the goal position without violating any constraints.
 
 Complete the following sub-tasks. The corresponding places to implement these are highlighted in the code with `<TODO IMPLEMENT STEP>` in the `src/` directory:
 
-1. 
+- TASK 1: Implement a quadratic cost function that penalizes the distance to the goal position.
+- TASK 2: Implement the solver constructor. More details on sub-steps in `src/solver.jl`
+- TASK 3: Invoke your solver in a receding-horizon fashion.
 
 ## Other tips:
 
-- If you have programming-language related questions, the [Julia manual](https://docs.julialang.org/en/v1/) should be the first thing to check.
-- For debugging, I like to use [Infiltrator.jl](https://github.com/JuliaDebug/Infiltrator.jl). You can use it to (conditionally) stop the REPL at a specific point in your code.
+- In case you are wondering why Julia is initially rather slow: when ever you call a function for
+the first time, Julia first has to compile that function. The second time you call a function, it
+can directly use the compiled code. When you close the session, the compiled code is deleted. That
+is a key reason why we work in a long-running interactive session rather than calling `julia
+my_script.jl`.
+- If you have programming-language related questions, the [Julia
+manual](https://docs.julialang.org/en/v1/) should be the first thing to check.
+- For debugging, I like to use [Infiltrator.jl](https://github.com/JuliaDebug/Infiltrator.jl). You
+can use it to (conditionally) stop the REPL at a specific point in your code.
+- The task assumes that you know the basics of constrained optimization. If you need a refresher, on
+  this or related topics, consult the resources listed on my website: https://lasse-peters.net/primer.
