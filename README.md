@@ -30,10 +30,17 @@ using PrioritizedConstraintsMPC
 run_demo()
 ```
 
+
 If you set up Julia correctly, this should show a simple plot with a Jackal robot spawned at a
-random position and moving towards the goal position (star) using a simple P-controller. Of course,
-this naive controller does not consider constraints. Thus, the simulation will likely terminate
-with warning like below:
+random position and moving towards the goal position (star) using a simple P-controller.
+The simulation looks as follows:
+
+<p align="center">
+  <img src="./assets/simulation.gif" width="50%"/>
+</p>
+
+Of course, this naive controller does not consider constraints. Thus, the simulation will likely
+terminate with warning like below:
 
 ```Julia
 ┌ Warning: State at time 60 is out of bounds.

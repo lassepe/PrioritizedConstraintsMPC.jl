@@ -34,17 +34,20 @@ function simulate!(
 
     display(canvas)
 
-    for time in 1:max_simulation_time
-        input = strategy(robot_state[], time)
-        is_feasible = validate_step!(validator, robot_state[], input, time)
+    Makie.record(canvas, "simulation.gif") do io
+        for time in 1:max_simulation_time
+            Makie.recordframe!(io)
+            input = strategy(robot_state[], time)
+            is_feasible = validate_step!(validator, robot_state[], input, time)
 
-        if !is_feasible
-            @warn "Step was not feasible; terminating"
-            break
+            if !is_feasible
+                @warn "Step was not feasible; terminating"
+                break
+            end
+            sleep(0.1)
+            # update the robot state
+            robot_state[] = dynamics(robot_state[], input, time)
         end
-        sleep(0.1)
-        # update the robot state
-        robot_state[] = dynamics(robot_state[], input, time)
     end
 
     if norm(robot_state[][1:2] - goal_position) < 0.1
