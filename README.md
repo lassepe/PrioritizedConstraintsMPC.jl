@@ -27,7 +27,7 @@ After activating and instantiating this project, the entry-point to this project
 
 ```julia
 using PrioritizedConstraintsMPC
-PrioritizedConstraintsMPC.run_demo()
+run_demo()
 ```
 
 If you set up Julia correctly, this should show a simple plot with a Jackal robot spawned at a
@@ -52,6 +52,8 @@ Complete the following sub-tasks. The corresponding places to implement these ar
 - TASK 1: Implement a quadratic cost function that penalizes the distance to the goal position.
 - TASK 2: Implement the solver constructor. More details on sub-steps in `src/solver.jl`
 - TASK 3: Invoke your solver in a receding-horizon fashion.
+
+Submit your solution by opening a pull request to this repository.
 
 ## Other tips:
 
