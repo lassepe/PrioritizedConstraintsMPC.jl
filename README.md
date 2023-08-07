@@ -1,8 +1,8 @@
 # PrioritizedConstraintsMPC
 
-This repository serves as an entry-point to the development of an MPC framework with prioritized constraints.
+This repository serves as an entry-point to the Master's thesis project [MPC-Based Trajectory Planning with Prioritized Constraints](http://alonsomora.com/thesis/available/msc_23_de_groot_peters_prioritized_constraints.pdf).
 
-As an initial assessment task, complete the following steps
+As an initial assessment task, complete the following steps:
 
 ## Setup and Preliminaries
 
