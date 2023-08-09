@@ -10,6 +10,7 @@ using TrajectoryGamesExamples: TrajectoryGamesExamples as TGE
 using Symbolics: Symbolics
 using FileIO: load
 using LinearAlgebra: norm
+using LinearAlgebra
 
 export run_demo
 
@@ -37,10 +38,13 @@ function run_demo(;
     goal_position = sample(environment.set; rng),
 )
     function objective(states, controls)
-        sum(zip(states, controls)) do state, input
+        sum(zip(states, controls)) do (state, input)
             # TASK 1: Implement a quadratic cost function that penalizes the distance to the goal position.
             # Also add a small penalty on the input to regularize the solution.
-            0.0
+            (state-[goal_position;0;0])'*Diagonal([1,1,1,1])*(state-[goal_position;0;0]) + 0.1*input'*Diagonal([1,1])*input
+            # println(state)
+            # println(input)
+            # 0.0
         end
     end
 
@@ -49,8 +53,9 @@ function run_demo(;
     strategy = function (state, time)
         # TASK 3: After implementing `solve_trajectory_optimization`,
         # extract the first input from the solution and return it from this function (instead of `[0.0, 0.0]` below)
-        # solution = solve_trajectory_optimization(solver, state, goal_position)
-        0.05(goal_position - state[1:2])
+        solution = solve_trajectory_optimization(solver, state, goal_position)
+        println(solution.z[41:42])
+        solution.z[41:42]
     end
 
     simulate!(strategy, dynamics, environment, initial_state, goal_position;)
